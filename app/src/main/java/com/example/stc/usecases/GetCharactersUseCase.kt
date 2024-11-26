@@ -17,13 +17,19 @@ class GetCharactersUseCase @Inject constructor(
     private val charactersRepository: CharactersRepository
 ) {
 
-    fun getCharacters(ts: String,apiKey: String,  hash: String): Flow<DataState<CharacterDataWrapper>> = flow {
+    fun getCharacters(
+        ts: String,
+        apiKey: String,
+        hash: String,
+        offset: Int, limit: Int,
+    ): Flow<DataState<CharacterDataWrapper>> = flow {
         try {
             emit(DataState.Loading(ProgressBarState.Loading))
             val data = charactersRepository.getCharacters(
-                ts=ts,
-                apiKey=apiKey,
-                hash=hash,
+                ts = ts,
+                apiKey = apiKey,
+                hash = hash,
+                offset= offset, limit= limit,
             )
 
             val responseType = ErrorCode.getCodeStatus(data?.code())

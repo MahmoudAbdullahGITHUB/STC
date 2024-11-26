@@ -12,6 +12,8 @@ interface MarvelApiService {
         @Query("ts") ts: String?,
         @Query("apikey") apiKey: String?,
         @Query("hash") hash: String?,
+        @Query("offset") offset: Int,
+        @Query("limit") limit: Int,
     ): Response<CharacterDataWrapper?>?
 
 }

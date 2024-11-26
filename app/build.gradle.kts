@@ -35,6 +35,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    viewBinding {
+        enable = true
+    }
 }
 
 dependencies {
@@ -63,8 +66,8 @@ dependencies {
     kapt("androidx.hilt:hilt-compiler:1.2.0")
 
     // ViewModel and LiveData
-    implementation( "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
-    implementation ("androidx.activity:activity-ktx:1.4.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0")
+    implementation("androidx.activity:activity-ktx:1.4.0")
 
 
     // retrofit
@@ -80,6 +83,13 @@ dependencies {
 
     // OkHttp Logging Interceptor
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    // paging 3
+    implementation("androidx.paging:paging-runtime:3.3.4")
+    // If using Kotlin Coroutines and Flow
+    implementation ("androidx.paging:paging-common-ktx:3.3.4")
 }
 
 kapt {

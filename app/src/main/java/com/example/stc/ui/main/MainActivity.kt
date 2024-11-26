@@ -1,44 +1,63 @@
 package com.example.stc.ui.main
 
+import ResultsAdapter
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.stc.R
+import com.example.stc.data.remote.model.response.charachter.Result
+import com.example.stc.databinding.ActivityMainBinding
 import com.example.stc.utils.Constants
 import com.example.stc.utils.Utils
 import com.example.stc.utils.ui.DataState
 import com.itworxedu.core.ui.ProgressBarState
-import com.itworxedu.core.ui.ResponseCodeHandler
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val viewModel: MainViewModel by viewModels()
+    private lateinit var binding: ActivityMainBinding
+    private val adapter = ResultsAdapter()
+
+    var characters = emptyList<Result>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        setupRecyclerView()
+
+
+
         loadData()
         subscribeObservers()
     }
 
+    private fun setupRecyclerView() {
+        binding.charactersRecyclerView.apply {
+            layoutManager = LinearLayoutManager(this@MainActivity)
+            adapter = this@MainActivity.adapter
+        }
+    }
+
     private fun loadData() {
         viewModel.fetchCharacters(
-            ts=System.currentTimeMillis().toString(),
+            ts = System.currentTimeMillis().toString(),
             apiKey = Constants.PUBLIC_API_KEY,
-
             hash = Utils.toMD5Hash(
                 System.currentTimeMillis()
                     .toString() + Constants.PRIVATE_API_KEY
                         + Constants.PUBLIC_API_KEY
-            )
+            ),
+            offset = 0,
+            limit = 20,
         )
     }
 
@@ -48,7 +67,9 @@ class MainActivity : AppCompatActivity() {
                 .flowWithLifecycle(lifecycle).collect { dataState ->
                     when (dataState) {
                         is DataState.Success -> {
-                            dataState.data?.let { posts ->
+                            dataState.data?.let { data ->
+                                characters = data
+                                adapter.submitList(characters)
                                 println("RRRRRRRRRRRRRright")
                             }
                         }

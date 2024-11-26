@@ -5,6 +5,7 @@ import com.example.stc.data.remote.model.response.charachter.CharacterDataWrappe
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import retrofit2.Response
+import retrofit2.http.Query
 import javax.inject.Inject
 
 class CharactersRepository @Inject constructor(
@@ -12,12 +13,15 @@ class CharactersRepository @Inject constructor(
 ) {
 
     suspend fun getCharacters(
-        apiKey: String, ts: String, hash: String
+        apiKey: String, ts: String, hash: String,
+        offset: Int, limit: Int,
     ): Response<CharacterDataWrapper?>? {
         return apiService.getCharacters(
             ts = ts,
             apiKey = apiKey,
             hash = hash,
+            offset = offset,
+            limit = limit,
         )
     }
 
