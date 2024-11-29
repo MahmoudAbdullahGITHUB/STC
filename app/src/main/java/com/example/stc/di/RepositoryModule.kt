@@ -1,7 +1,6 @@
 package com.example.stc.di
 
-import com.example.stc.data.remote.MarvelApiService
-import com.example.stc.repository.CharactersRepository
+
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

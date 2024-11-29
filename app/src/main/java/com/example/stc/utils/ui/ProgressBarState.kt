@@ -1,4 +1,4 @@
-package com.itworxedu.core.ui
+package com.example.stc.utils.ui
 
 sealed class ProgressBarState {
 

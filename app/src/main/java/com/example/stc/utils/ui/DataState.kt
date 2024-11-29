@@ -1,8 +1,5 @@
 package com.example.stc.utils.ui
 
-import com.itworxedu.core.ui.ProgressBarState
-import com.itworxedu.core.ui.ResponseCodeHandler
-
 sealed class DataState<T> {
 
     data class Error<T>(

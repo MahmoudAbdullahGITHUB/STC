@@ -1,4 +1,4 @@
-package com.itworxedu.core.ui
+package com.example.stc.utils.ui
 
 object ErrorCode {
     fun getCodeStatus(code: Int?): ResponseCodeHandler {
