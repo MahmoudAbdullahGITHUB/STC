@@ -3,6 +3,9 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id ("kotlin-parcelize")
+    id ("androidx.navigation.safeargs.kotlin")
+
 }
 
 android {
@@ -37,6 +40,9 @@ android {
     }
     viewBinding {
         enable = true
+    }
+    buildFeatures {
+        viewBinding = true
     }
 }
 
@@ -87,6 +93,12 @@ dependencies {
     implementation("androidx.paging:paging-runtime:3.3.4")
     // If using Kotlin Coroutines and Flow
     implementation ("androidx.paging:paging-common-ktx:3.3.4")
+
+    // Views/Fragments integration
+    implementation("androidx.navigation:navigation-fragment:2.8.4")
+    implementation("androidx.navigation:navigation-ui:2.8.4")
+
+
 }
 
 kapt {
